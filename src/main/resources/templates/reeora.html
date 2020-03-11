@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>记录开发过程中遇到的错误</title>
+</head>
+<body>
+<h2>1</h2>
+    <p>错误提示</p>
+    <p>org.springframework.boot.context.properties.bind.BindException: Failed to bind properties under 'logging.level' to java.util.Map<java.lang.String, org.springframework.boot.logging.LogLevel></p>
+    <img src="./images/error/errorlogfj4.png">
+    <p>解决办法：</p>
+    <p>将配置文件中
+    </p>
+<img src="./images/error/reeorlogfj42.png">
+<p>
+    logging:
+    level: debug
+</p>
+<h2>修改为</h2>
+<img src="./images/error/errorlogfj4z.png">
+<p>
+    logging:
+    level:
+    root: debug
+</p>
+
+
+<h2>2</h2>
+<p>错误提示</p>
+<p><h2>1</h2>
+<p>错误提示</p>
+<p>org.springframework.boot.context.properties.bind.BindException: Failed to bind properties under 'logging.level' to java.util.Map<java.lang.String, org.springframework.boot.logging.LogLevel></p>
+<img src="./images/error/errortestz.png">
+<h2>修改为</h2>
+<img src="./images/error/errortestz.png">
+<p>
+    将包名改为与其他分支一样的路径。就可以了！
+</p>
+
+
+</body>
+</html>

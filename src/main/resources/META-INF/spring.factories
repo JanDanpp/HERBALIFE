@@ -1,0 +1,8 @@
+org.springframework.context.ApplicationContextInitializer=\
+com.missz.herbalifegs.listener.HelloApplicationContextInitializer
+
+org.springframework.boot.SpringApplicationRunListener=\
+com.missz.herbalifegs.listener.HelloSpringApplicationRunListener
+
+
+

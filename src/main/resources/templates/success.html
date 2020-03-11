@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+首页succes
+<hr>
+<!--th:text将里面的文本内容设置为-->
+<div id="div01" class="class01" th:class="${hello}" th:id="${hello}" th:text="${hello}">这里显示欢迎信息</div>
+<hr>
+<div th:text="${hello}"></div>
+<div th:utext="${hello}"></div>
+<hr>
+
+<h4 th:text="${user}" th:each="user:${users}"></h4>
+<hr>
+<h4>
+    <span th:each="user:${users}"> [[${user}]] </span>
+</h4>
+</body>
+</html>

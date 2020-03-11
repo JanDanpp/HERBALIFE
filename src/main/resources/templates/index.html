@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="commons/web/bar :: common_header(~{::title},~{})">
+    <title>首页</title>
+</head>
+<body>
+
+<!-- 引入导航-->
+<div th:replace="~{commons/web/bar::#intop(activeUri='1')}"></div>
+
+<!--中间内容-->
+<div class="m-padded-tb-large m-padded-tb-big">
+    <div class="ui container">
+    <div class="ui stackable grid">
+        <!--左边博客列表-->
+        <div class="eleven wide column">
+            <!--header-->
+            <div class="ui top attached segment">
+                <div class="ui middle aligned two column grid">
+                        <div class="column">
+                            <h3 class="ui teal header">博客</h3>
+                        </div>
+                        <div class="right aligned column">
+                            共 <h2 class="ui orange header m-inline-block m-text-thin" th:text="${page.totalElements}">14</h2>篇
+                        </div>
+                </div>
+            </div>
+            <!--content-->
+            <div class="ui attached segment  ">
+
+                <div class="ui padded vertical segment m-padded-tb-large" th:each="blog : ${page.content}">
+                    <div class="ui mobile aligned mobile reversed stackable grid">
+                        <div class="eleven wide column">
+                            <h3 class="ui header"><a href="" th:href="@{/blog/{id}(id=${blog.id})}" class="m-black" th:text="${blog.title}">生活中每一天都有不同的人错过</a></h3>
+                            <p class="m-text" th:text="|${blog.description}......|">
+                                生活中每一天都有不同的人错过，也许是路过也许是在soul中匆匆一句你好边不再在发生，也许从莫名的广场瞬间中诞生，之后就再也没有之后了。而你却在苦苦等待那个想要一直陪伴你一生的人，带给你欢乐，带给你充满意义的每一天，说
+                                下半辈子我就是你的了。在一起了才发现生活依旧是生活，依靠的生活终没有得到快乐。每天的兴趣来自己而不是他人，我快乐终究世界会快乐，而不是别人快乐我就会快乐。</p>
+                            <div class="ui grid">
+
+                                <div class="row">
+                                    <div class="eleven wide column">
+                                        <div class="ui mini horizontal link list">
+                                            <div class="item">
+                                                <img th:src="@{/images/Jd0400.jpeg}" alt=""
+                                                     class="ui avatar image">
+                                                <div class="content"><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="header" th:text="${blog.user.nickname}">刘剑桥</a></div>
+                                            </div>
+                                            <div class="item">
+                                                <i class="calendar icon"></i><span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2020-01-21</span>
+                                            </div>
+                                            <div class="item">
+                                                <i class="eye icon"></i> <span th:text="${blog.views}">2342</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="right aligned five wide column">
+                                        <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin" th:text="${blog.type.name}">认知升级</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="five wide column" >
+                            <a href="#" target="_blank" th:href="@{/blog/{id}(id=${blog.id})}">
+                                <img th:src="@{https://i.picsum.photos/id/102/4320/3240.jpg}" alt="" class="ui rounded image">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="ui top attached segment" th:if="${page.totalPages}>1">
+                <div class="ui middle aligned two column grid" >
+                    <div class="column">
+                        <a href="#" th:href="@{/(page=${page.number}-1)}" th:unless="${page.first}" class="ui mini teal basic button ">上一页</a>
+                    </div>
+                    <div class="right aligned column">
+                        <a href="" th:href="@{/(page=${page.number}+1)}" th:unless="${page.last}" class="ui mini teal basic button ">下一页</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--右边博客列表-->
+        <div class="five wide column">
+            <!--分类-->
+            <div class="ui segment">
+                <div class="ui secondary segment">
+                    <div class="ui two column grid">
+                        <div class="column">
+                            <i class="idea icon"></i>on分类
+                        </div>
+                        <div class="right aligned column">
+                            <a href="#" th:href="@{types/-1}" target="_blank">more <i class="angle double right icon"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui teal segment">
+                    <div class="ui fluid vertical menu" >
+                        <a href="#" th:href="@{/types/{id}(id=${type.id})}" target="_blank" class="item"  th:each="type : ${types}">
+                            <span th:text="${type.name}">学习日志</span>
+                            <div class="ui teal basic left pointing label" th:text="${#arrays.length(type.blogs)}">13</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!--标签-->
+            <div class="ui segments m-margin-top-large">
+                <div class="ui secondary segment">
+                    <div class="ui two column grid">
+                        <div class="column">
+                            <i class="tags icon"></i>标签
+                        </div>
+                        <div class="right aligned column">
+                            <a href="#" th:href="@{tags/-1}" target="_blank">more <i class="angle double right icon"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui teal segment">
+                    <a href="#" th:href="@{/tags/{id}(id=${tag.id})}" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny" th:each="tag : ${tags}">
+                        <span th:text="${tag.name}">方法论</span> <div class="detail" th:text="${#arrays.length(tag.blogs)}">23</div>
+                    </a>
+                </div>
+            </div>
+
+            <!--最新推荐-->
+            <div class="ui segments m-margin-top-large">
+                <div class="ui secondary segment ">
+                    <i class="bookmark icon"></i>最新推荐
+                </div>
+                <div class="ui segment" th:each="blog : ${recommendBlogs}">
+                    <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black m-text-thin" th:text="${blog.title}">用户故事（User Story）</a>
+                </div>
+            </div>
+
+            <!--二维码-->
+            <div class="ui horizontal divider header m-margin-top-large">扫描关注我</div>
+            <div class="ui centered card" style="width:11em">
+                <img src="./images/WechatIMG7.jpeg" alt="" class="ui rounded image">
+            </div>
+
+        </div>
+
+
+    </div>
+    </div>
+</div>
+<br>
+<br>
+
+<!--引入底部footer-->
+<div th:replace="~{commons/web/bar::infoot}"></div>
+
+
+<!--引入js文件-->
+<div th:replace="commons/web/bar :: commons_footjs"></div>
+
+<script>
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    })
+</script>
+</body>
+</html>
+

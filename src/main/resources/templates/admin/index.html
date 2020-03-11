@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="commons/web/bar :: common_header(~{::title},~{})">
+  <title>博客</title>
+</head>
+
+<body>
+
+<!-- 引入导航-->
+<div th:replace="~{commons/admin/bar::adnav(1)}"></div>
+
+<div th:replace="~{commons/admin/bar::listdiv}"></div>
+
+  <!--中间内容-->
+  <div  class="m-container-small m-padded-tb-big">
+    <div class="ui container">
+      <div class="ui success large  message">
+        <h3>Hi,</h3>
+        <p>[[${session.loginUser}]]</p>
+      </div>
+      <img th:src="@{/images/user.jpg}" alt="" class="ui rounded bordered fluid image">
+    </div>
+  </div>
+
+  <br>
+  <br>
+
+<!--引入底部footer-->
+<div th:replace="~{commons/web/bar::infoot}"></div>
+
+<!--引入js文件-->
+<div th:replace="commons/web/bar :: commons_footjs"></div>
+
+<!--/*/</th:block>/*/-->
+  <script>
+    $('.menu.toggle').click(function () {
+      $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+    $('.ui.dropdown').dropdown({
+      on : 'hover'
+    });
+
+  </script>
+</body>
+</html>

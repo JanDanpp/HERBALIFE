@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="commons/web/bar :: common_header(~{::title},~{})">
+  <title>标签</title>
+</head>
+
+<body>
+
+<!-- 引入导航-->
+<div th:replace="~{commons/admin/bar::adnav(3)}"></div>
+
+<div th:replace="~{commons/admin/bar::listdiv}"></div>
+
+<!--中间内容-->
+<div  class="m-container-small m-padded-tb-big">
+  <div class="ui container">
+    <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+      <i class="close icon"></i>
+      <div class="header">提示：</div>
+      <p th:text="${message}">恭喜，操作成功！</p>
+    </div>
+    <table class="ui compact teal table">
+      <thead>
+      <tr>
+        <th></th>
+        <th>名称</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="type,iterStat : ${page.content}">
+        <td th:text="${iterStat.count}">1</td>
+        <td th:text="${type.name}">刻意练习清单</td>
+        <td>
+          <a href="#" th:href="@{/admin/tags/{id}/input(id=${type.id})}" class="ui mini teal basic button">编辑</a>
+          <a href="#" th:href="@{/admin/tags/{id}/delete(id=${type.id})}" class="ui mini red basic button">删除</a>
+        </td>
+      </tr>
+      </tbody>
+      <tfoot>
+      <tr>
+        <th colspan="6" >
+          <div class="ui mini pagination menu" th:if="${page.totalPages}>1">
+            <a th:href="@{/admin/tags(page=${page.number}-1)}" class="  item" th:unless="${page.first}">上一页</a>
+            <a th:href="@{/admin/tags(page=${page.number}+1)}" class=" item" th:unless="${page.last}">下一页</a>
+          </div>
+          <a href="#" th:href="@{/admin/tags/input}"  class="ui mini right floated teal basic button">新增</a>
+        </th>
+      </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+
+  <br>
+  <br>
+
+<!--引入底部footer-->
+<div th:replace="~{commons/web/bar::infoot}"></div>
+
+<!--引入js文件-->
+<div th:replace="commons/web/bar :: commons_footjs"></div>
+
+  <!--/*/</th:block>/*/-->
+  <script>
+    $('.menu.toggle').click(function () {
+      $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+    $('.ui.dropdown').dropdown({
+      on : 'hover'
+    });
+
+    //消息提示关闭初始化
+    $('.message .close')
+      .on('click', function () {
+        $(this)
+          .closest('.message')
+          .transition('fade');
+      });
+  </script>
+</body>
+</html>
